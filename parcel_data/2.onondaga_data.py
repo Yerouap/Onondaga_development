@@ -16,7 +16,10 @@ variables = {'B02001_001E':'pop_total',
              'B02001_002E':'pop_white',
              'B25003_001E':'housing_total',
              'B25003_002E':'housing_owned',
-             'B25003_003E':'housing_rental'}
+             'B25003_003E':'housing_rental',
+             'B19013_001E': 'Median household income',
+             'B19001_001E': 'Total household income'}
+
 var_list = variables.keys()
 var_string = ','.join(var_list)
 
@@ -58,8 +61,6 @@ pop = pop.replace('-666666666', np.nan)
 #rename columns
 pop = pop.rename(columns=variables)
 
-pop['by_tract'] = pop.groupby('tract')
-
 
 #concatenate columns
 pop['GEOID'] = pop['state']+pop['county']+pop['tract']+pop['block group']
@@ -74,7 +75,7 @@ keep_cols = list(variables.values())
 pop= pop[keep_cols]
 
 ##write pop to csv
-pop.to_csv('OCpop_by_bg.csv')
+pop.to_csv('ocpop_by_bg.csv')
 
 
 

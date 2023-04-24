@@ -12,8 +12,7 @@ import os
 
 
 
-#set PROJECTION number (used by NYS agencies)
-utm18n = 26918
+
 
 ##OUTPUT file
 out_file = 'onondaga_tracts.gpkg'
@@ -30,6 +29,10 @@ county = gpd.read_file('tl_2021_36_tract.zip')
 oc_tract = county.query('COUNTYFP == "067"')
 oc_tract = oc_tract.reset_index()
 oc_tract = oc_tract.drop(columns='index')
+
+
+#set PROJECTION number (used by NYS agencies)
+utm18n = 26918
 #convert geo-data (from shapefile) to projection
 oc_tract = oc_tract.to_crs(epsg=utm18n)
 
