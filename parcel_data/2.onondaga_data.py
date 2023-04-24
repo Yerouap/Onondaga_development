@@ -24,7 +24,7 @@ var_string = ','.join(var_list)
 
 #                       [RETRIEVE CENSUS VARIABLE]
 #
-api = 'https://api.census.gov/data/2020/acs/acs5'
+api = 'https://api.census.gov/data/2021/acs/acs5'
 #
 get_clause = var_string
 for_clause = 'block group:*'
@@ -57,8 +57,14 @@ pop = pop.replace('-666666666', np.nan)
 
 #rename columns
 pop = pop.rename(columns=variables)
+
+pop['by_tract'] = pop.groupby('tract')
+
+
 #concatenate columns
 pop['GEOID'] = pop['state']+pop['county']+pop['tract']+pop['block group']
+
+
 
 #set index
 pop = pop.set_index('GEOID')
