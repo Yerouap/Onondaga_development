@@ -30,7 +30,7 @@ var_string = ','.join(var_list)
 api = 'https://api.census.gov/data/2021/acs/acs5'
 #
 get_clause = var_string
-for_clause = 'block group:*'
+for_clause = 'tract:*'
 in_clause = 'state:36 county:067'
 #personal API key
 key_value =  '2f01ed011472c0feb42831c7f77f0cef4035a942'
@@ -63,7 +63,7 @@ pop = pop.rename(columns=variables)
 
 
 #concatenate columns
-pop['GEOID'] = pop['state']+pop['county']+pop['tract']+pop['block group']
+pop['GEOID'] = pop['state']+pop['county']+pop['tract']
 
 
 
@@ -75,9 +75,43 @@ keep_cols = list(variables.values())
 pop= pop[keep_cols]
 
 ##write pop to csv
-pop.to_csv('ocpop_by_bg.csv')
+pop.to_csv('ocpop_by_tract.csv')
 
 
+
+
+
+import geopandas as gpd
+import pandas as pd
+
+
+fips = {
+        'STATEFP': str, 
+        'COUNTYFP': str, 
+        'TRACTCE': str, 
+        'GEOID': str
+        }
+
+
+#                       Load Onondaga County's Census tracts
+#                               and tax parcel data
+#
+oc_tract = gpd.read_file('onondaga_tracts.gpkg', layer='tracts', dtype=fips)
+print(len(oc_tract['GEOID']))
+
+
+
+
+#                       Load population data
+#
+figrs = gpd.read_file('ocpop_by_bg.csv', dtype={'GEOID':str})
+print(len(figrs['GEOID']))
+#figrs = figrs.groupby('GEOID')
+#print(len(figrs['GEOID']))
+
+
+                     
+trfigs = oc_tract.merge(figrs,on='GEOID',how='left',validate='m:m',indicator=True)
 
 
 

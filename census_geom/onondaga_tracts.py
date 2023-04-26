@@ -5,16 +5,13 @@ Created on Tue Apr 18 15:39:59 2023
 @author: Yerouap
 """
 
-
+# --> loop to keep variables in fips
 
 import geopandas as gpd
 import os
 
 
-
-
-
-##OUTPUT file
+#set up output file
 out_file = 'onondaga_tracts.gpkg'
 
 
@@ -24,11 +21,18 @@ out_file = 'onondaga_tracts.gpkg'
 #can be linked to the Census Bureau’s demographic data
 
 
-# NEED DTYPE:STR!!!!
-county = gpd.read_file('tl_2021_36_tract.zip')
+fips = {
+        'STATEFP': str, 
+        'COUNTYFP': str, 
+        'TRACTCE': str, 
+        'GEOID': str
+        }
+
+county = gpd.read_file('tl_2021_36_tract.zip', dtype=fips)
 oc_tract = county.query('COUNTYFP == "067"')
 oc_tract = oc_tract.reset_index()
 oc_tract = oc_tract.drop(columns='index')
+
 
 
 #set PROJECTION number (used by NYS agencies)
@@ -48,53 +52,34 @@ if os.path.exists(out_file):
 #                       [Save results in geopackage]
 #write layer(s)
 oc_tract.to_file(out_file, layer='tracts', index=False)
-
 oc_tract.to_csv('onondaga_tracts.csv', index=False)
 
 
 
 
 
-
-
-
-#???
-#set PROJECTION number (used by NYS agencies)
-#utm18n = 26918
-#???
-##OUTPUT file
-#out_file = 'onondaga.gpkg'
-#          or
-#OCparcels = gpd.read_file('Onondaga_Tax_Parcels_SHP_2203-parcels.gpkg')
-
-
-#                       Load Onondaga County's Census tracts
-#                               and tax parcel data    
+#                       Import Census block groups
 #
+oc_bgs = gpd.read_file('tl_2021_36_bg.zip')
+
+#Onondaga County
+oc_bgs = oc_bgs.query('COUNTYFP == "067"')
+#match projection to geopackage
+oc_bgs = oc_bgs.to_crs(oc_tract.crs)
+#put area in known units
+oc_bgs['bg_area'] = oc_bgs.area
+
 #
-#TIGER/Line Files and Shapefiles contain geographic entity codes (GEOIDs) that 
-#can be linked to the Census Bureau’s demographic data
+oc_bgs.to_file(out_file, layer='bgs', index=False)
+
+
+
+#                       Merge tracts and block groups
 #
-#
-#read in New York's 2021 Census tract data
-#county = gpd.read_file('tl_2021_36_tract.zip', dtype={'GEOID':str})
-#select Onondaga County
-#oc = county.query('COUNTYFP == "067"')
-#oc = oc.reset_index()
-#oc = oc.drop(columns='index')
-#???
-#convert geo-data (from shapefile) to projection
-#oc = oc.to_crs(epsg=utm18n)
-
-
-
-
-
-
-
-
-
-
+geo_merged = gpd.sjoin(oc_tract, oc_bgs, how='left', op='intersects')
+geo_merged = geo_merged.drop(['index_right'], axis=1)
+geo_merged = geo_merged.reset_index(drop=True)
+geo_merged.to_file(out_file, layer='geo_merged', index=False)
 
 
 
