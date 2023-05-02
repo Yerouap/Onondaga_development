@@ -14,6 +14,8 @@ import numpy as np
 #set keys to rename census data
 variables = {'B02001_001E':'pop_total',
              'B02001_002E':'pop_white',
+             'B02001_003E':'pop_black',
+             'B03001_003E':'pop_hispanic_latino',
              'B25003_001E':'housing_total',
              'B25003_002E':'housing_owned',
              'B25003_003E':'housing_rental',
@@ -66,7 +68,6 @@ pop = pop.rename(columns=variables)
 pop['GEOID'] = pop['state']+pop['county']+pop['tract']
 
 
-
 #set index
 pop = pop.set_index('GEOID')
 #list??
@@ -74,44 +75,22 @@ keep_cols = list(variables.values())
 #trim pop!!
 pop= pop[keep_cols]
 
+
+pop['pop_poc'] = pop['pop_black'].astype(int) + pop['pop_hispanic_latino'].astype(int)
+
+
+
+#in inflation-adjusted dollars
+inc_stats_med = pop['Median household income'].median()
+inc_stats_tot = pop['Total household income'].median()
+
+
+
+
 ##write pop to csv
 pop.to_csv('ocpop_by_tract.csv')
 
 
-
-
-
-import geopandas as gpd
-import pandas as pd
-
-
-fips = {
-        'STATEFP': str, 
-        'COUNTYFP': str, 
-        'TRACTCE': str, 
-        'GEOID': str
-        }
-
-
-#                       Load Onondaga County's Census tracts
-#                               and tax parcel data
-#
-oc_tract = gpd.read_file('onondaga_tracts.gpkg', layer='tracts', dtype=fips)
-print(len(oc_tract['GEOID']))
-
-
-
-
-#                       Load population data
-#
-figrs = gpd.read_file('ocpop_by_bg.csv', dtype={'GEOID':str})
-print(len(figrs['GEOID']))
-#figrs = figrs.groupby('GEOID')
-#print(len(figrs['GEOID']))
-
-
-                     
-trfigs = oc_tract.merge(figrs,on='GEOID',how='left',validate='m:m',indicator=True)
 
 
 

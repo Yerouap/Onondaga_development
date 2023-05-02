@@ -5,7 +5,7 @@ Created on Tue Apr 18 15:39:59 2023
 @author: Yerouap
 """
 
-# --> loop to keep variables in fips
+
 
 import geopandas as gpd
 import os
@@ -31,7 +31,11 @@ fips = {
 county = gpd.read_file('tl_2021_36_tract.zip', dtype=fips)
 oc_tract = county.query('COUNTYFP == "067"')
 oc_tract = oc_tract.reset_index()
-oc_tract = oc_tract.drop(columns='index')
+oc_tract = oc_tract.drop(columns=['index',
+                                  'NAME',
+                                  'NAMELSAD',
+                                  'MTFCC',
+                                  'FUNCSTAT'])
 
 
 
@@ -76,11 +80,12 @@ oc_bgs.to_file(out_file, layer='bgs', index=False)
 
 #                       Merge tracts and block groups
 #
-geo_merged = gpd.sjoin(oc_tract, oc_bgs, how='left', op='intersects')
+geo_merged = oc_tract.sjoin(oc_bgs, how='left',predicate='intersects')
+geo_merged2 = oc_tract.sjoin(oc_bgs, how='left',predicate='contains')
 geo_merged = geo_merged.drop(['index_right'], axis=1)
 geo_merged = geo_merged.reset_index(drop=True)
 geo_merged.to_file(out_file, layer='geo_merged', index=False)
-
+geo_merged2.to_file(out_file, layer='geo_merged2', index=False)
 
 
 
