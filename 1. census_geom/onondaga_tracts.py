@@ -1,25 +1,30 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Apr 18 15:39:59 2023
+Onondaga_development
 
-@author: Yerouap
+Create a geopackage that contains the geospatial data for Onondaga County's 
+Census tracts and block groups.
 """
 
-
-
+#   to read geospatial data 
 import geopandas as gpd
+#   to clear the geopackage's file path
 import os
 
+#%%
 
-#set up output file
+# set file for geospatial data
+
 out_file = 'onondaga_tracts.gpkg'
 
+#%%
 
-#                       [Select Census tracts in Onondaga County 2021]
-#
-#TIGER/Line Files and Shapefiles contain geographic entity codes (GEOIDs) that 
+#       Select Census tracts in Onondaga County 
+
+#  TIGER/Line Files and Shapefiles contain geographic entity codes (GEOIDs) that 
 #can be linked to the Census Bureau’s demographic data
 
+#
 
 fips = {
         'STATEFP': str, 
