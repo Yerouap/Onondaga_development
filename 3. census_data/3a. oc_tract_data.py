@@ -1,17 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Apr 19 22:51:37 2023
+Onondaga_develpoment
 
-@author: Yerouap
+Retrieve demographic data from American Community Survey 5-year data (2021) 
+to identify populations in Onondaga County, particularly communities that are 
+traditionaly underrepresented in tech. 
 """
 
-
+#import modules
 import requests
+#module
 import pandas as pd
+#module
 import numpy as np
 
-#ADD new vars?!
-#set keys to rename census data
+#%%
+#       Retrieve demographic data 
+#
+# set keys to rename census variables
 variables = {'B02001_001E':'pop_total',
              'B02001_002E':'pop_white',
              'B02001_003E':'pop_black',
@@ -22,76 +28,79 @@ variables = {'B02001_001E':'pop_total',
              'B19013_001E': 'Median household income',
              'B19001_001E': 'Total household income'}
 
+# set keys as list
 var_list = variables.keys()
 var_string = ','.join(var_list)
 
-
-
-#                       [RETRIEVE CENSUS VARIABLE]
+#%%
 #
+# endpoint for API retrieval - Detailed Tables 
 api = 'https://api.census.gov/data/2021/acs/acs5'
-#
+
+# set payload : parameters for data retrieval 
 get_clause = var_string
 for_clause = 'tract:*'
 in_clause = 'state:36 county:067'
-#personal API key
+
+# personal API key
 key_value =  '2f01ed011472c0feb42831c7f77f0cef4035a942'
-#Parameters for data retrieval 
-payload = {'get': var_string,
+
+# group parameters for data retrieval 
+payload = {'get': get_clause,
            'for': for_clause,
            'in': in_clause,
            'key': key_value}
-#HTTPS query string to collect response from API endpoint
+
+#%%
+#
+# ???HTTPS query string to collect response from API endpoint
 response = requests.get(api, payload)
-#Test Request
+
+# test request
 if response.status_code == 200:
     print('\nzero=0=good')
 else:
     print(response.status_code)
     print(response.text)
     assert False    
-#return rows as list --> dataframe
+
+# return rows as list and convert to datatframe
 row_list = response.json()
 colnames = row_list[0]
 datarows = row_list[1:]
 pop = pd.DataFrame(columns=colnames, data=datarows)
 
-
-#deal with missing data
+#%%
+#
+# deal with missing data
 pop = pop.replace('-666666666', np.nan)
 
-#rename columns
+# rename columns
 pop = pop.rename(columns=variables)
 
-
-#concatenate columns
+# concatenate columns
 pop['GEOID'] = pop['state']+pop['county']+pop['tract']
 
-
-#set index
+# set index
 pop = pop.set_index('GEOID')
-#list??
+
+# ???list
 keep_cols = list(variables.values())
-#trim pop!!
+
+# trim pop!!
 pop= pop[keep_cols]
 
-
+#%%
+#
+#group traditionaly underrepresented communities
 pop['pop_poc'] = pop['pop_black'].astype(int) + pop['pop_hispanic_latino'].astype(int)
 
-
-
-#in inflation-adjusted dollars
-inc_stats_med = pop['Median household income'].median()
-inc_stats_tot = pop['Total household income'].median()
-
-
-
-
+#%%
+#
 ##write pop to csv
 pop.to_csv('ocpop_by_tract.csv')
 
-
-
+#%%
 
 
 
