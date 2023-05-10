@@ -1,5 +1,7 @@
 # Python
 
+*.pdf
+
 *.py[cod]
 __pycache__
 
@@ -32,6 +34,6 @@ makefile
 *.gpkg
 *.pkl
 *.zip
-*.pdf
+
 
 !demo.gpkg
