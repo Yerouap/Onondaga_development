@@ -1,5 +1,5 @@
 # Planning for Economic Development in Onondaga County
-### Alexander Yerou, June 2023
+### Alexander Yerou, May 2023
 ### Maxwell School at Syracuse University
 
 ___
@@ -20,9 +20,9 @@ This project uses Python to clean and merge datasets; QGIS to build maps; “”
 ### Python Files:
 say someting 
 
-**1.oc_geometry.py:**
+**1.oc_geometry.py:** Create a geopackage that contains geospatial data for Onondaga County's Census tracts and block groups.
 
-**2.oc_parcel_data.py:**
+**2.oc_parcel_data.py:** Clean and aggregate tax parcel data for Onondaga County. 
 
 **3.oc_census_data.py:**
 
