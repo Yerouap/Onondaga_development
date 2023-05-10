@@ -47,9 +47,17 @@ Compute socio-economic ratios and summary statistics to identify households
 in Onondaga County that are at the greatest risk of gentrification.
 
 ## Input Files
-**tl_2021_36_tract.zip:**
+**tl_2021_36_tract.zip:** TIGER/Line Files contain geographic 
+entity codes (GEOIDs) that can be linked to the Census Bureau’s demographic data.
+This file includes geographic data at the tract level.
 
-**tl_2021_36_bg.zip:**
+**tl_2021_36_bg.zip:** TIGER/Line Files contain geographic 
+entity codes (GEOIDs) that can be linked to the Census Bureau’s demographic data.
+This file includes geographic data at the block group level.
+
+A projection is systematic transformation of the latitudes and longitudes into 
+a plain surface where units are quite commonly represented as meters 
+(instead of decimal degrees)
 
 **Onondaga_2021_Tax_Parcels_SHP_2203.zip:**
 

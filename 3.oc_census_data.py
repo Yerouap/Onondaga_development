@@ -5,16 +5,17 @@ Onondaga_development
 @author: Yerouap
 May 2023
 """
-
-#import modules
+#       - Import modules - 
+#
+# to resuest data from census server
 import requests
-#module
+# to manipulate and structure data
 import pandas as pd
-#module
+# to work with numeric data
 import numpy as np
 
 #%%
-#       Retrieve demographic data 
+#       - Retrieve economic and demographic data from census -
 #
 # set keys to rename census variables
 variables = {'B02001_001E':'pop_total',
@@ -24,28 +25,33 @@ variables = {'B02001_001E':'pop_total',
              'B25003_001E':'housing_total',
              'B25003_002E':'housing_owned',
              'B25003_003E':'housing_rental',
-             'B19013_001E': 'Median household income',
-             'B19001_001E': 'Total household income',
-        'B17001_001E':'tot pop poverty determined', 
-            'B17001_002E': 'tot pop below pov',
-            'B17001_003E': 'tot pop at or above pov',
-            'B25070_001E': 'Median gross rent',
-           'B25071_001E': 'Median owner cost as a percentage of household income',
-           'B25077_001E': 'Median value of owner-occupied housing units'
+             'B19013_001E':'med_hh_income',
+             'B19001_001E':'tot_hh_income',
+             'B17001_001E':'tot_pop_measured_poverty', 
+             'B17001_002E':'tot_pop_below_poverty',
+             'B17001_003E':'tot_pop >= poverty',
+             'B25070_001E':'med_gross_rent',
+             'B25071_001E':'med_owner_cost%',   # cost given as percentage of household income
+             'B25077_001E':'med_value_owner-occupied_housing_units'
                                                                            }
 
 # set keys as list
 var_list = variables.keys()
+#format keys for API request
 var_string = ','.join(var_list)
 
 #%%
+#       - Create Census API request - 
 #
-# endpoint for API retrieval - Detailed Tables 
+# set endpoint: Census ACS5 - Detailed Tables 
 api = 'https://api.census.gov/data/2021/acs/acs5'
 
-# set payload : parameters for data retrieval 
+# set payload: parameters for data retrieval 
+#   specify variables 
 get_clause = var_string
+#   select geographic entity
 for_clause = 'tract:*'
+#   specify location withon entity: New York State and Onondaga County
 in_clause = 'state:36 county:067'
 
 # personal API key
@@ -59,24 +65,25 @@ payload = {'get': get_clause,
 
 #%%
 #
-# ???HTTPS query string to collect response from API endpoint
+# send HTTP get request to collect response from API endpoint
 response = requests.get(api, payload)
 
-# test request
+# test for successful request
 if response.status_code == 200:
-    print('\nzero=0=good')
+    print('\nsuccess')
 else:
     print(response.status_code)
     print(response.text)
     assert False    
 
-# return rows as list and convert to datatframe
+# return rows of data as list and convert to datatframe
 row_list = response.json()
 colnames = row_list[0]
 datarows = row_list[1:]
 pop = pd.DataFrame(columns=colnames, data=datarows)
 
 #%%
+#       - clean request -
 #
 # deal with missing data
 pop = pop.replace('-666666666', np.nan)
@@ -85,42 +92,29 @@ pop = pop.replace('-666666666.0', np.nan)
 # rename columns
 pop = pop.rename(columns=variables)
 
-# concatenate columns
+#%%
+#       - Create new variables -
+#
+# concatenate columns to create GEOIDs 
 pop['GEOID'] = pop['state']+pop['county']+pop['tract']
 # +pop['block group']
 
 # set index
 pop = pop.set_index('GEOID')
-
-# ???list
+# drop individual columns used ot create GEOIDs
 keep_cols = list(variables.values())
-
-# trim pop!!
 pop= pop[keep_cols]
 
-#%%
-#
 #group traditionaly underrepresented communities
 pop['pop_black'] = pop['pop_black'].fillna(0)
 pop['pop_hispanic_latino'] = pop['pop_hispanic_latino'].fillna(0)
 pop['pop_poc'] = pop['pop_black'].astype(int) + pop['pop_hispanic_latino'].astype(int)
 
 #%%
+#       - Save results -
 #
-##write pop to csv
+# as csv
 pop.to_csv('oc_pops.csv')
-
-#%%
-
-
-
-
-
-
-
-
-
-
 
 
 
