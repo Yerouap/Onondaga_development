@@ -32,6 +32,6 @@ makefile
 *.gpkg
 *.pkl
 *.zip
-*.csv
+
 
 !demo.gpkg
