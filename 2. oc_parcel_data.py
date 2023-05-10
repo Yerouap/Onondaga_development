@@ -15,6 +15,8 @@ shoutout - Professor Wilcixen --> for loop
 import geopandas as gpd
 # module
 import numpy as np
+#
+import os
 
 #%%
 #       - Load Onondaga County parcel data -
@@ -33,10 +35,10 @@ raw_parcel_data = gpd.read_file('Onondaga_2021_Tax_Parcels_SHP_2203.zip', dtype=
 # change variable type to ...
 raw_parcel_data['PROP_CLASS'] = raw_parcel_data['PROP_CLASS'].astype(float)
 
-# drop unknown owner data OR say that -999 is unknown owner 
-print(raw_parcel_data['OWNER_TYPE'].value_counts())
-raw_parcel_data['OWNER_TYPE'] = raw_parcel_data['OWNER_TYPE'].replace('-999', np.nan)
-print(raw_parcel_data['OWNER_TYPE'].value_counts())
+# # drop unknown owner data OR say that -999 is unknown owner 
+# print(raw_parcel_data['OWNER_TYPE'].value_counts())
+# raw_parcel_data['OWNER_TYPE'] = raw_parcel_data['OWNER_TYPE'].replace('-999', np.nan)
+# print(raw_parcel_data['OWNER_TYPE'].value_counts())
 
 #%%
 #       - Clean raw data - 
@@ -103,38 +105,45 @@ for info in owner_info:
     owner_type[owner] = owner_type['OWNER_TYPE'].isin([str(typ)])
     
 
-#%%
-#-
+print(owner_type.columns)
 #
-# city_tracts = gpd.read_file('NYS-Tax-Parcels.gpkg', layer = 'Syracuse_City_Tracts', dtype=fips, index=False)
-# city_vacant = int_city_tracts.sjoin(vacant,how='left',predicate='intersects')
-
+owner_type_tf = owner_type.drop(columns= [
+                                          'COUNTY', 'MUNI_NAME', 
+                                          'SWIS', 'LAND_AV', 
+                                          'TOTAL_AV', 'FULL_MV',
+                                          'YR_BLT', 'PROP_CLASS', 
+                                          'MUNI_PCLID'
+                                         ])
+    
 #%%
 #       - Create geopackage to file results -
 #
-#set parcel geopackage
-# out_file = 'prop_class.gpkg'
+# set parcel geopackage
+out_file = 'oc_parcels.gpkg'
 
-# #set projection
-# utm18n = 26918
-# .to_crs(epsg=utm18n)
+#set projection
+utm18n = 26918
 
-# # check if file exists and remove if does
-# if os.path.exists(out_file):
-#     os.remove(out_file)
+#
+parcels_type.to_crs(epsg=utm18n)
+owner_type.to_crs(parcels_type.crs)
 
-
-# #       - Save results -
-# # as layers in geopackage
-# .to_file(out_file, layer='vacant', index=False)
-# .to_file(out_file, layer='residential', index=False)
-
+# check if file exists and remove if does
+if os.path.exists(out_file):
+    os.remove(out_file)
 
 #%%
+#       - Save results -
+#
+# as layers in geopackage
 
+parcels_type.to_file(out_file, layer='parcels_type', index=False)
+owner_type_tf.to_file(out_file, layer='owner_type', index=False)
 
-
-
+#%%
+#
+# as csv file
+parcels.to_csv('oc_parcels.csv', index=False)
 
 
 

@@ -26,7 +26,14 @@ variables = {'B02001_001E':'pop_total',
              'B25003_002E':'housing_owned',
              'B25003_003E':'housing_rental',
              'B19013_001E': 'Median household income',
-             'B19001_001E': 'Total household income'}
+             'B19001_001E': 'Total household income',
+        'B17001_001E':'tot pop poverty determined', 
+            'B17001_002E': 'tot pop below pov',
+            'B17001_003E': 'tot pop at or above pov',
+            'B25070_001E': 'Median gross rent',
+           'B25071_001E': 'Median owner cost as a percentage of household income',
+           'B25077_001E': 'Median value of owner-occupied housing units'
+                                                                           }
 
 # set keys as list
 var_list = variables.keys()
@@ -74,12 +81,14 @@ pop = pd.DataFrame(columns=colnames, data=datarows)
 #
 # deal with missing data
 pop = pop.replace('-666666666', np.nan)
+pop = pop.replace('-666666666.0', np.nan)
 
 # rename columns
 pop = pop.rename(columns=variables)
 
 # concatenate columns
 pop['GEOID'] = pop['state']+pop['county']+pop['tract']
+# +pop['block group']
 
 # set index
 pop = pop.set_index('GEOID')
@@ -93,16 +102,20 @@ pop= pop[keep_cols]
 #%%
 #
 #group traditionaly underrepresented communities
+pop['pop_black'] = pop['pop_black'].fillna(0)
+pop['pop_hispanic_latino'] = pop['pop_hispanic_latino'].fillna(0)
 pop['pop_poc'] = pop['pop_black'].astype(int) + pop['pop_hispanic_latino'].astype(int)
 
 #%%
 #
 ##write pop to csv
-pop.to_csv('ocpop_by_tract.csv')
+pop.to_csv('oc_pops.csv')
 
 #%%
 
 
+acs = pd.read_csv('acs2021_5yr_B25004_.csv')
+print(acs.columns)
 
 
 

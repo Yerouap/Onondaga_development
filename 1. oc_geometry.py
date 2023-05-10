@@ -65,10 +65,22 @@ oc_bgs = oc_bgs.to_crs(oc_tracts.crs)
 oc_bgs['bg_area'] = oc_bgs.area
 
 #%%
+#       - Merge tracts and block groups -
+#
+#
+geo_merged = oc_tracts.sjoin(oc_bgs, how='left', predicate='intersects')
+
+#
+geo_merged = geo_merged.drop(['index_right', 'COUNTYFP_right'], axis=1)
+
+#
+geo_merged = geo_merged.reset_index(drop=True)
+
+#%%
 #       - Create geopackage to file results -
 #
 # set output file
-out_file = 'onondaga_tracts.gpkg'
+out_file = 'oc_geometry.gpkg'
 
 # check if file exists and remove if does
 if os.path.exists(out_file):
@@ -80,28 +92,13 @@ if os.path.exists(out_file):
 # as layer in geopackage
 oc_tracts.to_file(out_file, layer='tracts', index=False)
 oc_bgs.to_file(out_file, layer='bgs', index=False)
+geo_merged.to_file(out_file, layer='geo_merged', index=False)
+
 
 # as csv
-oc_tracts.to_csv('onondaga_tracts.csv', index=False)
-oc_bgs.to_csv('onondaga_bgs.csv', index=False)
-
-
-
-#%%
-# #       Merge tracts and block groups
-# #
-# geo_merged = oc_tract.sjoin(oc_bgs, how='left',predicate='intersects')
-# geo_merged2 = oc_tract.sjoin(oc_bgs, how='left',predicate='contains')
-# geo_merged = geo_merged.drop(['index_right'], axis=1)
-# geo_merged = geo_merged.reset_index(drop=True)
-# geo_merged.to_file(out_file, layer='geo_merged', index=False)
-# geo_merged2.to_file(out_file, layer='geo_merged2', index=False)
-
-
-
-
-
-
+oc_tracts.to_csv('oc_tracts.csv', index=False)
+oc_bgs.to_csv('oc_bgs.csv', index=False)
+geo_merged.to_csv('geo_merged.csv', index=False)
 
 
 
