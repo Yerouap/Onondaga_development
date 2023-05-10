@@ -32,17 +32,17 @@ say someting
 **https://api.census.gov/data/2021/acs/acs5:** is
 
 ## Output Files
-#### 1.:
+
 **oc_geometry.gpkg:** has
 **oc_tracts.csv:** has
 **oc_bgs.csv:** has
 **oc_geo_merged:** has
-### 2.:
+
 **oc_parcels.gpkg:** has
 **oc_parcels.csv:** has
-### 3.:
+
 **oc_pops.csv:** has
-### 4.:
+
 **findings.png:** need
 
 ## Tableau
