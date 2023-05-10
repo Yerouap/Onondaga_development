@@ -1,6 +1,6 @@
 # Python
 
-*.pdf
+
 
 *.py[cod]
 __pycache__
@@ -29,6 +29,7 @@ desktop.ini
 .Rdata
 *.pgw
 makefile
+*.pdf
 
 # Data
 *.gpkg
