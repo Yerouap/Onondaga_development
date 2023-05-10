@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Onondaga_development 
-
-Clean, identify, and join Onondaga County parcels data onto geometry...
-
-shoutout - Professor Wilcixen --> for loop
-
+Onondaga_development
+ 
+colaborators: Pete Wilcoxen
 @author: Yerouap
+May 2023
 """
 
 

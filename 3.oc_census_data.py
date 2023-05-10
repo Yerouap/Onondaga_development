@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Onondaga_develpoment
-
-Retrieve demographic data from American Community Survey 5-year data (2021) 
-to identify populations in Onondaga County, particularly communities that are 
-traditionaly underrepresented in tech. 
-
+Onondaga_development
+ 
 @author: Yerouap
+May 2023
 """
 
 #import modules

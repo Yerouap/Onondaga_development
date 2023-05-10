@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Onondaga_development
-
-Create a geopackage that contains geospatial data for Onondaga County's 
-Census tracts and block groups.
-
+ 
 @author: Yerouap
+May 2023
 """
 #
 # TIGER/Line Files and Shapefiles contain geographic entity codes (GEOIDs) 
