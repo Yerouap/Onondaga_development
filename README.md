@@ -14,10 +14,10 @@ Over the next twenty years, Micron Technology plans to spend up to $100 billion 
 insert picture
 ___
 
-## Instructions:
+## Instructions
 This project uses Python to clean and merge datasets; QGIS to build maps; “””and Tableau to make the final tract-level results accessible to a wider audience.”””
 
-### Python Files
+### Python Files:
 say someting 
 
 **1.Onondaga_geometry.py:** describe
@@ -25,14 +25,14 @@ say someting
 **3.oc_census_data.py:** describe
 **4.figures_and_statistics.py:** describe
 
-## Input Files:
+## Input Files
 **tl_2021_36_tract.zip:** is
 **tl_2021_36_bg.zip:** is
 **Onondaga_2021_Tax_Parcels_SHP_2203.zip:** is
 **https://api.census.gov/data/2021/acs/acs5:** is
 
-## Output Files:
-### 1.:
+## Output Files
+#### 1.:
 **oc_geometry.gpkg:** has
 **oc_tracts.csv:** has
 **oc_bgs.csv:** has
