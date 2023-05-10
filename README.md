@@ -20,40 +20,40 @@ This project uses Python to clean and merge datasets; QGIS to build maps; “”
 ### Python Files:
 say someting 
 
-**1.Onondaga_geometry.py:** describe
+**1.oc_geometry.py:**
 
-**2.oc_parcel_data.py:** describe
+**2.oc_parcel_data.py:**
 
-**3.oc_census_data.py:** describe
+**3.oc_census_data.py:**
 
-**4.figures_and_statistics.py:** describe
+**4.figures_and_statistics.py:**
 
 ## Input Files
-**tl_2021_36_tract.zip:** is
+**tl_2021_36_tract.zip:**
 
-**tl_2021_36_bg.zip:** is
+**tl_2021_36_bg.zip:**
 
-**Onondaga_2021_Tax_Parcels_SHP_2203.zip:** is
+**Onondaga_2021_Tax_Parcels_SHP_2203.zip:**
 
-**https://api.census.gov/data/2021/acs/acs5:** is
+**https://api.census.gov/data/2021/acs/acs5:**
 
 ## Output Files
 
-**oc_geometry.gpkg:** has
+**oc_geometry.gpkg:**
 
-**oc_tracts.csv:** has
+**oc_tracts.csv:**
 
-**oc_bgs.csv:** has
+**oc_bgs.csv:**
 
-**oc_geo_merged:** has
+**oc_geo_merged:**
 
-**oc_parcels.gpkg:** has
+**oc_parcels.gpkg:**
 
-**oc_parcels.csv:** has
+**oc_parcels.csv:**
 
-**oc_pops.csv:** has
+**oc_pops.csv:**
 
-**findings.png:** need
+**findings.png:**
 
 ## Tableau
 
