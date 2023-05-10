@@ -21,24 +21,34 @@ This project uses Python to clean and merge datasets; QGIS to build maps; “”
 say someting 
 
 **1.Onondaga_geometry.py:** describe
+
 **2.oc_parcel_data.py:** describe
+
 **3.oc_census_data.py:** describe
+
 **4.figures_and_statistics.py:** describe
 
 ## Input Files
 **tl_2021_36_tract.zip:** is
+
 **tl_2021_36_bg.zip:** is
+
 **Onondaga_2021_Tax_Parcels_SHP_2203.zip:** is
+
 **https://api.census.gov/data/2021/acs/acs5:** is
 
 ## Output Files
 
 **oc_geometry.gpkg:** has
+
 **oc_tracts.csv:** has
+
 **oc_bgs.csv:** has
+
 **oc_geo_merged:** has
 
 **oc_parcels.gpkg:** has
+
 **oc_parcels.csv:** has
 
 **oc_pops.csv:** has
