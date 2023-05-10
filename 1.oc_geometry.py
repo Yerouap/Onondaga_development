@@ -98,7 +98,7 @@ geo_merged.to_file(out_file, layer='geo_merged', index=False)
 # as csv
 oc_tracts.to_csv('oc_tracts.csv', index=False)
 oc_bgs.to_csv('oc_bgs.csv', index=False)
-geo_merged.to_csv('geo_merged.csv', index=False)
+geo_merged.to_csv('oc_geo_merged.csv', index=False)
 
 
 

@@ -114,11 +114,6 @@ pop.to_csv('oc_pops.csv')
 #%%
 
 
-acs = pd.read_csv('acs2021_5yr_B25004_.csv')
-print(acs.columns)
-
-
-
 
 
 
