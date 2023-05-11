@@ -8,12 +8,9 @@ May 2023
 """
 #       - Import modules -
 #
-# to work with geospatial data 
-import geopandas as gpd
-# to work with numeric data
-import numpy as np
-# to clear file path for geopackage 
-import os
+import geopandas as gpd  # to work with geospatial data
+import numpy as np       # to work with numeric data
+import os                # to clear file path for geopackage
 
 #%%
 #       - Load Onondaga County tax parcel data -

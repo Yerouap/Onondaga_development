@@ -4,37 +4,25 @@
 
 ___
 ## Motivation
-Over the next twenty years, Micron Technology plans to spend up to $100 billion 
-building the nation’s largest semiconductor fabrication facility in Syracuse’s 
-northern suburbs. This historic investment is motivated by New York’s Green CHIPS 
-Program which offers up to $10 billion in economic incentives for environmentally 
-friendly semiconductor manufacturing and supply chain projects. Cross-sector investments 
-in the semiconductor industry are expected to create transformational economic 
-development, job growth, and fiscal mobility in the Central New York Region. However,
- many residents may be disadvantaged by an increase in the cost of living, property taxes, 
- and unable to relocate. The goal of this project is to identify communities in 
- Onondaga County that are the most vulnerable to gentrification at the census 
- tract level. 
+Over the next twenty years, Micron Technology plans to spend up to $100 billion building the nation’s largest semiconductor fabrication facility in Clay New York. This historic investment is motivated by New York’s Green CHIPS Program which offers up to $10 billion in economic incentives for environmentally friendly semiconductor manufacturing and supply chain projects. Expansive cross-sector investments in the semiconductor industry are expected to create transformational economic development, job growth, and fiscal mobility in the Central New York Region. However, many residents may be disadvantaged by an increase in the cost of living, property taxes, and inability to avoid gentrification. The goal of this project is to visualize potential patterns of displacement and identify areas in Onondaga County that are the most at risk.  
 
 ### This project aims to:
-- Identify households in Onondaga County that will be most affected by 
-agglomeration and increased property taxes.
-- Locate communities that are traditionally underrepresented in tech in Onondaga County. 
-- To inform the public administration of Green CHIPS funding so that Onondaga 
-County delivers on its promise for inclusive growth and economic development.
+- Identify areas in Onondaga County with high concentrations of low-income households, minority populations, or renters which may be more susceptible to displacement due to rising housing costs.
+- Visualize potential patterns of displacement and identify areas in Onondaga County that are the most at risk. 
+- Serve as a tool for the administration of the Green CHIPS funding so that Onondaga County delivers on its promise for inclusive growth and economic development.
 
-*insert picture*
+
 ___
 
 ## Instructions
-This project uses Python to clean and merge datasets; QGIS to build maps; “””and 
-Tableau to make the final tract-level results accessible to a wider audience.”””
+This project uses Python to clean and merge datasets, and QGIS to build maps.
 
 ### Python Files:
-say someting 
+The following files should be run in order. Output files are saved to the main project folder.
 
-**1.oc_geometry.py:** Create a geopackage that contains geospatial data for 
-Onondaga County's Census tracts and block groups.
+**1.oc_geometry.py:** Uses geospatial data from *'tl_2021_36_tract.zip'* and *'tl_2021_36_bg.zip'*.
+Zip files can be found [[Here](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2021.html#list-tab-790442341)].
+Creates a geopackage to join with Onondaga County's economic and demographic data in the remaining files.
 
 **2.oc_parcel_data.py:** Clean and aggregate tax parcel data for Onondaga County. 
 
@@ -42,9 +30,8 @@ Onondaga County's Census tracts and block groups.
 to identify populations in Onondaga County, particularly communities that are 
 traditionaly underrepresented in tech. 
 
-**4.figures_and_statistics.py:** 
-Compute socio-economic ratios and summary statistics to identify households 
-in Onondaga County that are at the greatest risk of gentrification.
+**4.figures_and_statistics.py:** Compute socio-economic ratios and summary statistics 
+to identify households in Onondaga County that are at the greatest risk of gentrification.
 
 ## Input Files
 **tl_2021_36_tract.zip:** TIGER/Line Files contain geographic 

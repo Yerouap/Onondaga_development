@@ -7,10 +7,8 @@ May 2023
 """
 #       - Import modules - 
 #
-# to work with geospatial data 
-import geopandas as gpd
-# to clear file path for geopackage
-import os
+import geopandas as gpd  # to work with geospatial data
+import os                # to clear file path for geopackage
 
 #%%
 #       - Select Census tracts in Onondaga County - 

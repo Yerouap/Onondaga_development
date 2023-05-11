@@ -7,12 +7,10 @@ May 2023
 """
 #       - Import modules - 
 #
-# to resuest data from census server
-import requests
-# to manipulate and structure data
-import pandas as pd
-# to work with numeric data
-import numpy as np
+
+import requests      # to resuest data from Census server
+import pandas as pd  # to manipulate and structure data
+import numpy as np   # to work with numeric data
 
 #%%
 #       - Retrieve economic and demographic data from census -
