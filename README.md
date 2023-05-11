@@ -52,21 +52,20 @@ This file includes geographic data at the block group level.
 **https://api.census.gov/data/2021/acs/acs5:**
 
 ## Output Files
-**oc_geometry.gpkg:** 
+**oc_geometry.gpkg:** geospatial data for Onondaga County.
 
-**oc_tracts.csv:**
+**oc_tracts.csv:** Onondaga County's Census tracts.
 
-**oc_bgs.csv:**
+**oc_bgs.csv:** Onondaga County's Census block grooups.
 
-**oc_geo_merged:**
+**oc_geo_merged:** Merged tracts and block groups geospatial data. 
 
-**oc_parcels.gpkg:**
+**oc_parcels.gpkg:** Onondaga County tax parcel data.
 
-**oc_parcels.csv:**
+**oc_parcels.csv:** Onondaga County tax parcel data.
 
-**oc_pops.csv:**
+**oc_pops.csv:** Economic and demographic data from the ACS5. 
 
-**findings.png:**
 
 ## QGIS
 **onondaga_development.qgz:**
