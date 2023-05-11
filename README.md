@@ -12,8 +12,8 @@ Over the next twenty years, Micron Technology plans to spend up to $100 billion 
 - Serve as a tool for the administration of the Green CHIPS funding so that Onondaga County delivers on its promise for inclusive growth and economic development.
 
 ## Findings:
+The highest concentration of renters in Onondaga County are in and around the City of Syracuse. These census tracts also contain greater minority populations and low-income households. The data revealed that there are many vacant parcels in Onondaga County. The Green CHIPS funds should support a public program that purchases vacant buildings are restores them as affordable housing. This will eliminate the concentration of low-income households in the City of Syracuse, ease gentrification, and help Upstate New York achieve its promise of inclusive growth. 
 
-![Population of Renters] (pop_housing_rental.png)
 ___
 
 ## Instructions

@@ -55,7 +55,7 @@ pop_tracts.to_csv('oc_pop_tracts.csv', index=True)
 #%%
 #
 #
-#
+# merge any of the data in the geometry of these dataframes
 pop_tracts_parcels = gpd.sjoin(pop_tracts, parcel_data, how='left', predicate='intersects')
 
 keep_cols = [
@@ -71,7 +71,7 @@ keep_cols = [
              'tot_pop >= poverty','med_gross_rent',
              'med_owner_cost%','med_value_owner-occupied_housing_units'
                                                                        ]
-#
+#clean
 pop_parcels = pop_tracts_parcels[keep_cols]
 
 # group by tract 
@@ -87,9 +87,7 @@ grpd = pop_parcels.groupby(['GEOID']).agg({
 
 #%%
 #       - compute some figures and statistics at census tract level - 
-
-# .query("month == 1 or month == 7")
-
+#
 #
 stats = pd.DataFrame()
 
@@ -115,7 +113,7 @@ stats['med_inc'] = med_inc.astype(int)
 stats['pct_bel_pov'] = pct_bel_pov.astype(int)
       
       
-      
+# .query('vacant == True')
 #%%
 #       - Make some graphs -
 #
@@ -131,19 +129,6 @@ jg.set_axis_labels('Median household income','pct_rental')
 jg.fig.suptitle('D')
 jg.fig.tight_layout()
 
-# 4-dimensional plot
-fg = sns.relplot(data=grpd,
-                 x='pop_poc',
-                 y='med_gross_rent',
-                 #hue='pct_bel_pov',
-                 size='FULL_MV',
-                 sizes=(10,200),
-                 facet_kws={'despine': False,
-                            'subplot_kws':
-                            {'title': 'Characteristics by tracts'}})
-fg.set_axis_labels('med_inc', 'Percent Rental')
-fg.refline(x=med_inc, y=pct_rental)
-fg.tight_layout()
 
 # 4-dimensional plot
 fg = sns.relplot(data=stats,
