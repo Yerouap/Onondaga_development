@@ -11,7 +11,9 @@ Over the next twenty years, Micron Technology plans to spend up to $100 billion 
 - Visualize potential patterns of displacement and identify areas in Onondaga County that are the most at risk. 
 - Serve as a tool for the administration of the Green CHIPS funding so that Onondaga County delivers on its promise for inclusive growth and economic development.
 
+## Findings:
 
+![Population of Renters] (pop_housing_rental.png)
 ___
 
 ## Instructions
@@ -21,13 +23,16 @@ This project uses Python to clean and merge datasets, and QGIS to build maps.
 The following files should be run in order. Output files are saved to the main project folder.
 
 **1.oc_geometry.py:** Uses geospatial data from *'tl_2021_36_tract.zip'* and *'tl_2021_36_bg.zip'*.
-Zip files can be found [[Here](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2021.html#list-tab-790442341)].
+Zip files can be found at the[[Unuted States Census](https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.2021.html#list-tab-790442341)].
 Creates a geopackage to join with Onondaga County's economic and demographic data in the remaining files.
 
-**2.oc_parcel_data.py:** Clean and aggregate tax parcel data for Onondaga County. 
+**2.oc_parcel_data.py:** Uses tax parcel data from *'Onondaga_2021_Tax_Parcels_SHP_2203.zip'* 
+which can be found at the [[NYS GIS Clearing House](https://gis.ny.gov/parcels). 
+Cleans and aggregates tax parcel data for Onondaga County. 
 
-**3.oc_census_data.py:** Retrieve demographic data from American Community Survey 5-year data (2021) 
-to identify populations in Onondaga County, particularly communities that are 
+**3.oc_census_data.py:** Retrieve economic and demographic data from 
+the American Community Survey 5-year data (2021)to identify populations in 
+Onondaga County, particularly communities that are 
 traditionaly underrepresented in tech. 
 
 **4.figures_and_statistics.py:** Compute socio-economic ratios and summary statistics 
@@ -42,16 +47,12 @@ This file includes geographic data at the tract level.
 entity codes (GEOIDs) that can be linked to the Census Bureau’s demographic data.
 This file includes geographic data at the block group level.
 
-A projection is systematic transformation of the latitudes and longitudes into 
-a plain surface where units are quite commonly represented as meters 
-(instead of decimal degrees)
-
 **Onondaga_2021_Tax_Parcels_SHP_2203.zip:**
 
 **https://api.census.gov/data/2021/acs/acs5:**
 
 ## Output Files
-**oc_geometry.gpkg:**
+**oc_geometry.gpkg:** 
 
 **oc_tracts.csv:**
 
@@ -70,7 +71,7 @@ a plain surface where units are quite commonly represented as meters
 ## QGIS
 **onondaga_development.qgz:**
 
-## Tableau
+
 
 
 
