@@ -49,7 +49,7 @@ api = 'https://api.census.gov/data/2021/acs/acs5'
 get_clause = var_string
 #   select geographic entity
 for_clause = 'tract:*'
-#   specify location withon entity: New York State and Onondaga County
+#   specify location within entity: New York State and Onondaga County
 in_clause = 'state:36 county:067'
 
 # personal API key

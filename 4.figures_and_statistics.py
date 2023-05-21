@@ -16,7 +16,7 @@ import numpy as np               # to work with numeric data
 import os                        # to clear file path for geopackage
 
 #%%
-#       - Load some output files -
+#       - Load output files -
 #
 # read in parcel data
 parcel_data = gpd.read_file('oc_parcels.gpkg')
@@ -30,7 +30,7 @@ census_tracts = gpd.read_file('oc_geometry.gpkg', layer='tracts', dtype={'GEOID'
 census_tracts = census_tracts.set_index('GEOID')
 
 #%%
-#
+#       - Merge and manage data - 
 #
 # merge geospatial data onto census data
 pop_tracts = pd.merge(pop_data, census_tracts, on='GEOID', how='left')
@@ -86,7 +86,7 @@ grpd = pop_parcels.groupby(['GEOID']).agg({
                                                                                                                     })
 
 #%%
-#       - compute some figures and statistics at census tract level - 
+#       - Compute some figures and statistics at census tract level - 
 #
 #
 stats = pd.DataFrame()
